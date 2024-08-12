@@ -33,7 +33,7 @@ router.get('/update', function (req, res, next) {
 router.get('/delete/:id', function (req, res, next) {
     res.render('update', { title: 'Update User' });
 });
-router.post('/update', validate(userSchemas.updateProfile), controller.updateProfile);
-router.post('/delete/:id', validate(userSchemas.deleteProfile), controller.deleteProfile);
+router.put('/update', validate(userSchemas.updateProfile), controller.updateProfile);
+router.delete('/delete/:id', validate(userSchemas.deleteProfile), controller.deleteProfile);
 
 export default router;
