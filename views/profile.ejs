@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>User Profile</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+<h1>User Profile</h1>
+
+<% if (user && user.length > 0) { %>
+    <p><strong>First Name:</strong> <%= user[0].first_name %></p>
+    <p><strong>Last Name:</strong> <%= user[0].last_name %></p>
+    <p><strong>Email:</strong> <%= user[0].email %></p>
+    <a href="/updateProfile/<%= user[0].id %>">Update Profile</a>
+    <form action="/deleteProfile/<%= user[0].id %>" method="POST">
+        <button type="submit">Delete Profile</button>
+    </form>
+<% } else { %>
+    <p>User not found.</p>
+<% } %>
+
+<a href="/">Go Back</a>
+</body>
+
+</html>
