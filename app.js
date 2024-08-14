@@ -1,9 +1,11 @@
-import 'dotenv/config.js'
+import 'dotenv/config.js';
+import './initTables.js'
 import createError from 'http-errors';
 import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
+
 import methodOverride from 'method-override';
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';

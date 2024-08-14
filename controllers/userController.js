@@ -2,6 +2,7 @@ import models from "../models/user.js";
 import md5 from "md5";
 import cryptoJS from "crypto-js";
 import user from "../models/user.js";
+import createHttpError from "http-errors";
 
 
 export default {
@@ -18,33 +19,43 @@ export default {
     },
     async register(req, res) {
         try {
-            const {
-                firstName,
-                lastName,
-                email,
-                password
-            } = req.body;
+            // const {
+            //     firstName,
+            //     lastName,
+            //     email,
+            //     password
+            // } = req.body;
+            //
+            //
+            // const lowerCaseEmail = email.toLowerCase();
+            // const hashedPassword = md5(md5(password)  + process.env.SECRET);
+            // const result = await models.createUser({
+            //     firstName,
+            //     lastName,
+            //     lowerCaseEmail,
+            //     hashedPassword
+            // });
+            //
+            // if (result) {
+            //     res.status(200).render('register',{
+            //         message: 'User created successfully',
+            //         userEmail: lowerCaseEmail
+            //     });
+            //     return
+            // }
+            // res.status(401).json({
+            //     message: result
+            // });
 
+            const {firstName,lastName, email, password} = req.body;
 
-            const lowerCaseEmail = email.toLowerCase();
-            const hashedPassword = md5(md5(password)  + process.env.SECRET);
-            const result = await models.createUser({
-                firstName,
-                lastName,
-                lowerCaseEmail,
-                hashedPassword
-            });
+            const emailUsed = await models.getProfile(email);
 
-            if (result) {
-                res.status(200).render('register',{
-                    message: 'User created successfully',
-                    userEmail: lowerCaseEmail
-                });
-                return
+            if (emailUsed) {
+                throw new createHttpError(422, "email already exists");
             }
-            res.status(401).json({
-                message: result
-            });
+            const {newUser} = await models.registration({firstName,lastName, email, password});
+            res.json({newUser});
 
         } catch (error) {
             res.status(500).json({

@@ -1,11 +1,13 @@
 import db from '../clients/db.mysql.js';
 import md5 from "md5";
+import _ from 'lodash';
+
 
 export default {
     async getUsersList() {
         const [rows] = await db.query(`SELECT * FROM users`);
         return rows;
-    },
+     },
     async createUser(body) {
         const values = [body.firstName, body.lastName, body.lowerCaseEmail, body.hashedPassword];
 
@@ -15,7 +17,9 @@ export default {
             values
         );
 
-        return rows;
+        const newUser = await this.getProfile(body)
+
+        return {newUser,rows};
     },
     async login(body) {
         const values = [body.lowerCaseEmail];
@@ -40,12 +44,12 @@ export default {
     },
     async getProfile(data) {
         const values = [data.id];
-        const [rows] = await db.query(`SELECT * FROM users WHERE id = ?`, values);
+        const [rows] = await db.query(`SELECT * FROM users WHERE email = ? LIMIT 1`, values);
 
         if (rows.length === 0) {
             return { success: false, message: 'Invalid ID user not found' };
         }
-        return { success: true, rows }
+        return _.head(_.head(rows) || null)
     },
 
     async updateProfile(body) {

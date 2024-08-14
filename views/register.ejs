@@ -1,51 +1,53 @@
-<!DOCTYPE html>
-<html>
-
+<!doctype html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>
-        Registration
-    </title>
-    <link rel='stylesheet' href='../public/stylesheets/style.css' />
+    <title>Registration</title>
 </head>
-
-
 <body>
-        <h2 class="mt-5">User Registration</h2>
 
-        <% if (typeof message !== 'undefined') { %>
-            <div class="alert alert-danger">
-                <%= message %>
-            </div>
-        <% } %>
-        <form action="/register" method="POST">
-                <div class="form-group">
-                    <label for="firstName">First Name:</label>
-                    <input type="text" class="form-control" id="firstName" name="firstName" required>
-                </div>
 
-                <div class="form-group">
-                    <label for="lastName">Last Name:</label>
-                    <input type="text" class="form-control" id="lastName" name="lastName" required>
-                </div>
+<h2 class="mt-5">User Registration</h2>
 
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
-                </div>
+<% if (typeof message !== 'undefined') { %>
+    <div class="alert alert-danger">
+        <%= message %>
+    </div>
+<% } %>
+<form action="/register" method="POST" id="register">
+    <div class="form-group">
+        <label for="firstName">First Name:</label>
+        <input type="text" class="form-control" id="firstName" name="firstName" ><br>
+        <span data-name="firstName"></span><br>
+    </div>
 
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
-                </div>
+    <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <input type="text" class="form-control" id="lastName" name="lastName" ><br>
+        <span data-name="lastName"></span><br>
+    </div>
 
-                <button type="submit" class=" btn-primary">Register</button><br>
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" name="email" ><br>
+        <span data-name="email"></span><br>
+    </div>
 
-        </form>
-        <a class="back_task" href="/"> &#9756; Home</a><br>
+    <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" id="password" name="password" ><br>
+        <span data-name="password"></span><br>
+    </div>
 
+    <button type="submit" class=" btn-primary">Register</button><br>
+
+</form>
+<a class="back_task" href="/"> &#9756; Home</a><br>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/javaScripts/registration.js"></script>
 </body>
 </html>
